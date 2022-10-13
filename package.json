@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
+  "engines": {
+    "node": "14.20.1"
+  },
   "scripts": {
     "build": "react-scripts build",
     "eject": "react-scripts eject",
