@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import './app.scss';
 import { Content, Theme } from '@carbon/react';
-import TutorialHeader from './components/TutorialHeader';
+import MainHeader from './components/MainHeader';
+import Footer from './components/Footer';
 import { Route, Switch } from 'react-router-dom';
 import LandingPage from './content/LandingPage';
-import RepoPage from './content/RepoPage';
 
 class App extends Component {
   render() {
     return (
       <>
         <Theme theme="g100">
-          <TutorialHeader />
+          <MainHeader />
         </Theme>
         <Content>
           <Switch>
             <Route exact path="/" component={LandingPage} />
-            <Route path="/repos" component={RepoPage} />
           </Switch>
-        </Content>
+        </Content>        
+        <Footer />
       </>
     );
   }
