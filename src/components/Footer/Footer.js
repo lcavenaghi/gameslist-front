@@ -6,7 +6,7 @@ import { InfoSection, InfoCard } from '../../components/Info';
 import { Globe, Application } from '@carbon/react/icons';
 
 const Footer = () => (
-  <Column lg={16} md={8} sm={4} className="landing-page__r3">
+  <Column lg={16} md={8} sm={4} className="landing-page__r3 zeromargem">
     <InfoSection heading="Sobre">
             <InfoCard
         heading="Projeto criado para o curso Desenvolvimento Web Full Stack"
