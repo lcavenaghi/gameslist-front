@@ -23,7 +23,8 @@ const MainHeader = () => (
           onClick={onClickSideNavExpand}
           isActive={isSideNavExpanded}
         />
-        <HeaderName element={Link} to="/" prefix="Games List">
+        <HeaderName element={Link} to="/" prefix="">
+          Games List
         </HeaderName>
         <HeaderNavigation aria-label="Games List">
           <HeaderMenuItem element={Link} to="/acessos">

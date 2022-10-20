@@ -10,18 +10,18 @@ import { ArrowRight } from '@carbon/react/icons';
 
 const Login = () => {
   return (
-    <div class="grupo">
-      <div class="links">
+    <div className="grupo">
+      <div className="links">
         <Link href="#" renderIcon={ArrowRight}>
           Continuar com google
         </Link>
       </div>
-      <FormGroup>
+      <FormGroup legendText="" hasmargin="">
         <Stack gap={7}>
           <TextInput id="email" placeholder="Digite seu email" required labelText="Email:" />
           <TextInput id="senha" type="password" placeholder="Digite sua senha" required labelText="Senha" />
         </Stack>
-        <section class="areaBotoes">
+        <section className="areaBotoes">
           <Button kind="secondary" id="esqueciSenha">
             Esqueci a senha
           </Button>
@@ -30,7 +30,7 @@ const Login = () => {
           </Button>
         </section>
       </FormGroup>
-      <div class="links">
+      <div className="links">
         <Link href="/#/registro" renderIcon={ArrowRight}>
           Registrar
         </Link>
