@@ -15,6 +15,22 @@
   @include landing-page-background;
 }
 
+.login-page__banner {
+  font-size: 4.75rem;
+  line-height: 1.13;
+  padding-top: $spacing-07 * 4;
+  padding-bottom: $spacing-07;
+  text-align: center;
+  background-color: #000;
+  position: relative;
+}
+
+.login-page__heading {
+  margin:auto;
+  color: $text-on-color;
+  @include type-style('productive-heading-07');
+}
+
 .landing-page__heading {
   @include type-style('productive-heading-05');
 }

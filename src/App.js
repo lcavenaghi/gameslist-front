@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import MainHeader from './components/MainHeader';
 import Footer from './components/Footer';
+import PrivateRouter from './components/PrivateRouter';
 
 import LandingPage from './content/LandingPage';
 import Login from './content/Login';
@@ -21,24 +22,24 @@ class App extends Component {
   render() {
     return (
       <>
-        <Theme theme="g100">
-          <MainHeader />
-        </Theme>
-        <Content>
-          <Switch>
-            <Route exact path="/" component={LandingPage} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/registro" component={Registro} />
-            <Route exact path="/acessos" component={Acessos} />
-            <Route exact path="/desenvolvedoras" component={Desenvolvedoras} />
-            <Route exact path="/jogos" component={Jogos} />
-            <Route exact path="/lojas" component={Lojas} />
-            <Route exact path="/noticias" component={Noticias} />
-            <Route exact path="/plataformas" component={Plataformas} />
-            <Route exact path="/tags" component={Tags} />
-          </Switch>
-        </Content>        
-        <Footer />
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/registro" component={Registro} />
+          <Content>
+            <Theme theme="g100">
+              <MainHeader />
+            </Theme>
+            <PrivateRouter exact path="/" component={LandingPage} />
+            <PrivateRouter exact path="/acessos" component={Acessos} />
+            <PrivateRouter exact path="/desenvolvedoras" component={Desenvolvedoras} />
+            <PrivateRouter exact path="/jogos" component={Jogos} />
+            <PrivateRouter exact path="/lojas" component={Lojas} />
+            <PrivateRouter exact path="/noticias" component={Noticias} />
+            <PrivateRouter exact path="/plataformas" component={Plataformas} />
+            <PrivateRouter exact path="/tags" component={Tags} />
+            <Footer />
+          </Content>
+        </Switch>
       </>
     );
   }
