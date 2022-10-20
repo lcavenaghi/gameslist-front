@@ -1,0 +1,26 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/react/scss/breakpoint' as *;
+@use '@carbon/react/scss/theme' as *;
+
+.grupo {
+  margin: auto;
+  width: 30%;
+  height: 100vh;
+}
+
+.areaBotoes {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1rem;
+}
+
+.links {
+  padding-top: 1rem;
+  right: 0px;
+  text-align: right;
+}
+
+#esqueciSenha{
+  margin-right: 1rem;
+}

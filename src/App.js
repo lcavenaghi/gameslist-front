@@ -7,6 +7,8 @@ import MainHeader from './components/MainHeader';
 import Footer from './components/Footer';
 
 import LandingPage from './content/LandingPage';
+import Login from './content/Login';
+import Registro from './content/Registro';
 import Acessos from './content/Acessos';
 import Desenvolvedoras from './content/Desenvolvedoras';
 import Jogos from './content/Jogos';
@@ -25,6 +27,8 @@ class App extends Component {
         <Content>
           <Switch>
             <Route exact path="/" component={LandingPage} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/registro" component={Registro} />
             <Route exact path="/acessos" component={Acessos} />
             <Route exact path="/desenvolvedoras" component={Desenvolvedoras} />
             <Route exact path="/jogos" component={Jogos} />
