@@ -7,8 +7,8 @@ Para a configuração e execução do frontend, instale as dependencias através
 npm install
 ```
 
-E rode a aplicação através do comando:
+E rode a aplicação localmente através do comando:
 
 ```
-npm start
+npm run dev
 ```
