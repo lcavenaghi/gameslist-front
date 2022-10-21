@@ -9,15 +9,32 @@
   height: 100%;
 }
 
-.container {
-  background-color: $layer-hover-01;
-  position: absolute;
-  min-width: 25%;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+@media screen and (max-width: 600px) {
+  .container {
+    background-color: $layer-hover-01;
+    position: absolute;
+    min-width: 80%;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
 }
+
+/* For Tablets */
+@media screen and (min-width: 600px){
+  .container {
+    background-color: $layer-hover-01;
+    position: absolute;
+    min-width: 30%;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+}
+
+
 
 .formLogin {
   padding: 7%;
