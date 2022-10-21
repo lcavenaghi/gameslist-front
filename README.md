@@ -7,6 +7,12 @@ Para a configuração e execução do frontend, instale as dependencias através
 npm install
 ```
 
+Configure o arquivo .env com:
+
+```
+REACT_APP_API_URL=<URLDoBackEnd>
+```
+
 E rode a aplicação através do comando:
 
 ```
