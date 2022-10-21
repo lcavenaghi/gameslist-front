@@ -16,5 +16,5 @@ REACT_APP_API_URL=<URLDoBackEnd>
 E rode a aplicação através do comando:
 
 ```
-npm start
+npm run dev
 ```
