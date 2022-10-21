@@ -16,6 +16,7 @@ const Login = () => {
   const [mensagemDeErro, setmensagemDeErro] = useState('')
 
   const onSubmitClick = (e) => {
+    e.preventDefault();
     let opts = {
       'email': email,
       'senha': senha
@@ -30,8 +31,16 @@ const Login = () => {
     }).then((response) => {
       if (!response.ok) {
         return response.text().then(text => {
-          setmensagemDeErro(text)
-          throw new Error(text);
+          text = JSON.parse(text)
+          if (Object.hasOwn(text, 'errorMessage')) {
+            setmensagemDeErro(text.errorMessage)
+            throw new Error(text.errorMessage);
+          }
+          else{
+            text = JSON.stringify(text)
+            setmensagemDeErro(text)
+            throw new Error(text);
+          }
         })
       }
       else {
@@ -79,7 +88,7 @@ const Login = () => {
                 Acessar
               </Button>
             </section>
-            {mensagemDeErro === "" || mensagemDeErro === undefined ? <></> : <InlineNotification role="status" subtitle={mensagemDeErro} timeout={0} title="Erro ao realizar o login:" />}
+            {mensagemDeErro === "" || mensagemDeErro === undefined ? <></> : <InlineNotification hideCloseButton={true} role="status" subtitle={mensagemDeErro} timeout={0} title="Erro ao realizar o login:" />}
           </Form>
           <div className="links">
             <Link href="/#/registro" renderIcon={ArrowRight}>
