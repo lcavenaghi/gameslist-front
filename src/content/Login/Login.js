@@ -1,15 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  FormGroup,
+  Form,
   Stack,
   Link,
   TextInput,
   Button,
-  Column
+  Column,
+  InlineNotification
 } from '@carbon/react';
 import { ArrowRight } from '@carbon/react/icons';
 
 const Login = () => {
+  const [email, setEmail] = useState('')
+  const [senha, setSenha] = useState('')
+  const [mensagemDeErro, setmensagemDeErro] = useState('')
+
+  const onSubmitClick = (e) => {
+    let opts = {
+      'email': email,
+      'senha': senha
+    }
+    fetch(process.env.REACT_APP_API_URL + '/login', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(opts)
+    }).then((response) => {
+      if (!response.ok) {
+        return response.text().then(text => {
+          setmensagemDeErro(text)
+          throw new Error(text);
+        })
+      }
+      else {
+        return response.json();
+      }
+    }).then(data => {
+      console.log(data.token);
+      localStorage.setItem("token", data.token);
+      window.location.href = '/'
+    })
+  }
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value)
+  }
+
+  const handleSenhaChange = (e) => {
+    setSenha(e.target.value)
+  }
+
   return (
     <div className="externalContainer">
       <div className="container">
@@ -24,20 +66,21 @@ const Login = () => {
               Continuar com Google
             </Link>
           </div>
-          <FormGroup legendText="" hasmargin="">
+          <Form onSubmit={onSubmitClick}>
             <Stack gap={7}>
-              <TextInput id="email" placeholder="Digite seu email" required labelText="Email:" />
-              <TextInput id="senha" type="password" placeholder="Digite sua senha" required labelText="Senha" />
+              <TextInput id="email" placeholder="Digite seu email" required labelText="Email:" onChange={handleEmailChange} value={email} />
+              <TextInput id="senha" placeholder="Digite sua senha" required labelText="Senha" onChange={handleSenhaChange} value={senha} type="password" />
             </Stack>
             <section className="areaBotoes">
               <Button kind="secondary" id="botaoEsquerda">
                 Esqueci a senha
               </Button>
-              <Button kind="primary" id="botaoDireita">
+              <Button kind="primary" type="submit" id="botaoDireita">
                 Acessar
               </Button>
             </section>
-          </FormGroup>
+            {mensagemDeErro === "" || mensagemDeErro === undefined ? <></> : <InlineNotification role="status" subtitle={mensagemDeErro} timeout={0} title="Erro ao realizar o login:" />}
+          </Form>
           <div className="links">
             <Link href="/#/registro" renderIcon={ArrowRight}>
               Registrar
