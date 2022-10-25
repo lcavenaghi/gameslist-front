@@ -91,7 +91,7 @@ const Registro = () => {
               <TextInput id="senha" type="password" placeholder="Digite sua senha" required labelText="Senha" onChange={handleSenhaChange} value={senha} />
             </Stack>
             <section className="areaBotoes">
-              <Button href="/#/login" kind="secondary" id="botaoEsquerda">
+              <Button href="/login" kind="secondary" id="botaoEsquerda">
                 Voltar
               </Button>
               <Button kind="primary" type="submit" id="botaoDireita">

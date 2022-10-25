@@ -9,6 +9,8 @@ import PrivateRouter from './components/PrivateRouter';
 
 import LandingPage from './content/LandingPage';
 import Login from './content/Login';
+import EsqueciSenha from './content/EsqueciSenha';
+import ResetSenha from './content/ResetSenha';
 import Registro from './content/Registro';
 import Acessos from './content/Acessos';
 import Desenvolvedoras from './content/Desenvolvedoras';
@@ -25,6 +27,8 @@ class App extends Component {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/registro" component={Registro} />
+          <Route exact path="/senha" component={EsqueciSenha} />
+          <Route exact path="/resetsenha" component={ResetSenha} />
           <Content>
             <Theme theme="g100">
               <MainHeader />

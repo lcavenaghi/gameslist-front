@@ -2,26 +2,22 @@ import React, { useState } from 'react';
 import {
   Form,
   Stack,
-  Link,
   TextInput,
   Button,
   Column,
   InlineNotification
 } from '@carbon/react';
-import { ArrowRight } from '@carbon/react/icons';
 
-const Login = () => {
+const EsqueciSenha = () => {
   const [email, setEmail] = useState('')
-  const [senha, setSenha] = useState('')
   const [mensagemDeErro, setmensagemDeErro] = useState('')
 
   const onSubmitClick = (e) => {
     e.preventDefault();
     let opts = {
-      'email': email,
-      'senha': senha
+      'email': email
     }
-    fetch(process.env.REACT_APP_API_URL + '/login', {
+    fetch(process.env.REACT_APP_API_URL + '/senha', {
       method: 'post',
       headers: {
         'Accept': 'application/json',
@@ -47,18 +43,12 @@ const Login = () => {
         return response.json();
       }
     }).then(data => {
-      console.log(data.token);
-      localStorage.setItem("token", data.token);
       window.location.href = '/'
     })
   }
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
-  }
-
-  const handleSenhaChange = (e) => {
-    setSenha(e.target.value)
   }
 
   return (
@@ -70,35 +60,21 @@ const Login = () => {
           </h1>
         </Column>
         <div className="formLogin">
-          <div className="links">
-            <Link href="/" renderIcon={ArrowRight}>
-              Continuar com Google
-            </Link>
-          </div>
           <Form onSubmit={onSubmitClick}>
             <Stack gap={7}>
               <TextInput id="email" placeholder="Digite seu email" required labelText="Email:" onChange={handleEmailChange} value={email} />
-              <TextInput id="senha" placeholder="Digite sua senha" required labelText="Senha" onChange={handleSenhaChange} value={senha} type="password" />
             </Stack>
             <section className="areaBotoes">
-              <Button href="/senha" kind="secondary" id="botaoEsquerda">
-                Esqueci a senha
-              </Button>
               <Button kind="primary" type="submit" id="botaoDireita">
-                Acessar
+                Enviar email
               </Button>
             </section>
-            {mensagemDeErro === "" || mensagemDeErro === undefined ? <></> : <InlineNotification hideCloseButton={true} role="status" subtitle={mensagemDeErro} timeout={0} title="Erro ao realizar o login:" />}
+            {mensagemDeErro === "" || mensagemDeErro === undefined ? <></> : <InlineNotification hideCloseButton={true} role="status" subtitle={mensagemDeErro} timeout={0} title="Erro ao fazer a requisição:" />}
           </Form>
-          <div className="links">
-            <Link href="/registro" renderIcon={ArrowRight}>
-              Registrar
-            </Link>
-          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default EsqueciSenha;

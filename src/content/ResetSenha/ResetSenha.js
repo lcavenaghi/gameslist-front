@@ -2,27 +2,25 @@ import React, { useState } from 'react';
 import {
   Form,
   Stack,
-  Link,
   TextInput,
   Button,
   Column,
   InlineNotification
 } from '@carbon/react';
-import { ArrowRight } from '@carbon/react/icons';
 
-const Login = () => {
-  const [email, setEmail] = useState('')
+const ResetSenha = () => {
   const [senha, setSenha] = useState('')
-  const [mensagemDeErro, setmensagemDeErro] = useState('')
+  const [mensagemDeErro, setmensagemDeErro] = useState('');
+  
 
   const onSubmitClick = (e) => {
     e.preventDefault();
     let opts = {
-      'email': email,
+      'token': new URL(window.location.href).searchParams.get('token'),
       'senha': senha
     }
-    fetch(process.env.REACT_APP_API_URL + '/login', {
-      method: 'post',
+    fetch(process.env.REACT_APP_API_URL + '/senha', {
+      method: 'patch',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -30,14 +28,16 @@ const Login = () => {
       body: JSON.stringify(opts)
     }).then((response) => {
       if (!response.ok) {
+        console.log("oi");
         return response.text().then(text => {
-          text = JSON.parse(text);
+          console.log(text)
+          text = JSON.parse(text)
           if (Object.hasOwn(text, 'errorMessage')) {
             setmensagemDeErro(text.errorMessage);
             throw new Error(text.errorMessage);
           }
-          else{
-            text = JSON.stringify(text);
+          else {
+            text = JSON.stringify(text)
             setmensagemDeErro(text);
             throw new Error(text);
           }
@@ -47,14 +47,8 @@ const Login = () => {
         return response.json();
       }
     }).then(data => {
-      console.log(data.token);
-      localStorage.setItem("token", data.token);
       window.location.href = '/'
     })
-  }
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value)
   }
 
   const handleSenhaChange = (e) => {
@@ -70,35 +64,21 @@ const Login = () => {
           </h1>
         </Column>
         <div className="formLogin">
-          <div className="links">
-            <Link href="/" renderIcon={ArrowRight}>
-              Continuar com Google
-            </Link>
-          </div>
           <Form onSubmit={onSubmitClick}>
             <Stack gap={7}>
-              <TextInput id="email" placeholder="Digite seu email" required labelText="Email:" onChange={handleEmailChange} value={email} />
-              <TextInput id="senha" placeholder="Digite sua senha" required labelText="Senha" onChange={handleSenhaChange} value={senha} type="password" />
+              <TextInput id="senha" placeholder="Digite sua nova senha" required labelText="Senha" onChange={handleSenhaChange} value={senha} type="password" />
             </Stack>
             <section className="areaBotoes">
-              <Button href="/senha" kind="secondary" id="botaoEsquerda">
-                Esqueci a senha
-              </Button>
               <Button kind="primary" type="submit" id="botaoDireita">
-                Acessar
+                Alterar a senha
               </Button>
             </section>
-            {mensagemDeErro === "" || mensagemDeErro === undefined ? <></> : <InlineNotification hideCloseButton={true} role="status" subtitle={mensagemDeErro} timeout={0} title="Erro ao realizar o login:" />}
+            {mensagemDeErro === "" || mensagemDeErro === undefined ? <></> : <InlineNotification hideCloseButton={true} role="status" subtitle={mensagemDeErro} timeout={0} title="Erro ao alterar senha:" />}
           </Form>
-          <div className="links">
-            <Link href="/registro" renderIcon={ArrowRight}>
-              Registrar
-            </Link>
-          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default ResetSenha;
