@@ -15,6 +15,7 @@ import {
 } from '@carbon/react';
 import { Logout } from '@carbon/react/icons';
 import { Link } from 'react-router-dom';
+import checaPerfil from '../../util/checaPerfil';
 
 const MainHeader = () => {
 
@@ -46,12 +47,8 @@ const MainHeader = () => {
             <HeaderMenuItem element={Link} to="/jogos">
               Jogos
             </HeaderMenuItem>
-            <HeaderMenuItem element={Link} to="/tags">
-              Tags
-            </HeaderMenuItem>
-            <HeaderMenuItem element={Link} to="/plataformas">
-              Plataformas
-            </HeaderMenuItem>
+            {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/tags">Tags</HeaderMenuItem>}
+            {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/plataformas"> Plataformas </HeaderMenuItem>}
             <HeaderMenuItem element={Link} to="/lojas">
               Lojas
             </HeaderMenuItem>
@@ -74,12 +71,8 @@ const MainHeader = () => {
                 <HeaderMenuItem element={Link} to="/jogos">
                   Jogos
                 </HeaderMenuItem>
-                <HeaderMenuItem element={Link} to="/tags">
-                  Tags
-                </HeaderMenuItem>
-                <HeaderMenuItem element={Link} to="/plataformas">
-                  Plataformas
-                </HeaderMenuItem>
+                {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/tags">Tags</HeaderMenuItem>}
+                {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/plataformas"> Plataformas </HeaderMenuItem>}
                 <HeaderMenuItem element={Link} to="/lojas">
                   Lojas
                 </HeaderMenuItem>
