@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Form,
   Stack,
@@ -9,11 +9,64 @@ import {
   InlineNotification
 } from '@carbon/react';
 import { ArrowRight } from '@carbon/react/icons';
+import { GoogleLogin } from 'react-google-login';
+import { gapi } from 'gapi-script';
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
   const [mensagemDeErro, setmensagemDeErro] = useState('')
+  const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
+  const onGoogleSuccess = (res) => {
+    console.log("Acessando via google");
+    let opts = {
+      'token': res.tokenId
+    }
+    fetch(process.env.REACT_APP_API_URL + '/logingoogle', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(opts)
+    }).then((response) => {
+      if (!response.ok) {
+        return response.text().then(text => {
+          text = JSON.parse(text);
+          if (Object.hasOwn(text, 'errorMessage')) {
+            setmensagemDeErro(text.errorMessage);
+            throw new Error(text.errorMessage);
+          }
+          else {
+            text = JSON.stringify(text);
+            setmensagemDeErro(text);
+            throw new Error(text);
+          }
+        })
+      }
+      else {
+        return response.json();
+      }
+    }).then(data => {
+      localStorage.setItem("token", data.token);
+      window.location.href = '/'
+    })
+  };
+
+  const onGoogleFailure = (err) => {
+    setmensagemDeErro(err);
+  };
+
+  useEffect(() => {
+    const initClient = () => {
+      gapi.client.init({
+        clientId: clientId,
+        scope: []
+      });
+    };
+    gapi.load('client:auth2', initClient);
+  });
 
   const onSubmitClick = (e) => {
     e.preventDefault();
@@ -36,7 +89,7 @@ const Login = () => {
             setmensagemDeErro(text.errorMessage);
             throw new Error(text.errorMessage);
           }
-          else{
+          else {
             text = JSON.stringify(text);
             setmensagemDeErro(text);
             throw new Error(text);
@@ -47,7 +100,6 @@ const Login = () => {
         return response.json();
       }
     }).then(data => {
-      console.log(data.token);
       localStorage.setItem("token", data.token);
       window.location.href = '/'
     })
@@ -70,10 +122,14 @@ const Login = () => {
           </h1>
         </Column>
         <div className="formLogin">
-          <div className="links">
-            <Link href="/" renderIcon={ArrowRight}>
-              Continuar com Google
-            </Link>
+          <div className='links'>
+            <GoogleLogin
+              buttonText="Continuar com Google"
+              clientId={clientId}
+              onSuccess={onGoogleSuccess}
+              onFailure={onGoogleFailure}
+              isSignedIn={false}
+            />
           </div>
           <Form onSubmit={onSubmitClick}>
             <Stack gap={7}>

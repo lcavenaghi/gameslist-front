@@ -16,7 +16,6 @@ const Registro = () => {
   const [mensagemDeErro, setmensagemDeErro] = useState('')
 
   const onSubmitClick = (e) => {
-    console.log("maoe");
     e.preventDefault();
     let opts = {
       'email': email,

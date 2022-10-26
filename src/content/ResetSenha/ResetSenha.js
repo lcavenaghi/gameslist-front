@@ -28,9 +28,7 @@ const ResetSenha = () => {
       body: JSON.stringify(opts)
     }).then((response) => {
       if (!response.ok) {
-        console.log("oi");
         return response.text().then(text => {
-          console.log(text)
           text = JSON.parse(text)
           if (Object.hasOwn(text, 'errorMessage')) {
             setmensagemDeErro(text.errorMessage);

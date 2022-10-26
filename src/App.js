@@ -24,6 +24,7 @@ class App extends Component {
   render() {
     return (
       <>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/registro" component={Registro} />
@@ -33,14 +34,16 @@ class App extends Component {
             <Theme theme="g100">
               <MainHeader />
             </Theme>
-            <PrivateRouter exact path="/" component={LandingPage} />
-            <PrivateRouter exact path="/acessos" component={Acessos} />
-            <PrivateRouter exact path="/desenvolvedoras" component={Desenvolvedoras} />
-            <PrivateRouter exact path="/jogos" component={Jogos} />
-            <PrivateRouter exact path="/lojas" component={Lojas} />
-            <PrivateRouter exact path="/noticias" component={Noticias} />
-            <PrivateRouter exact path="/plataformas" component={Plataformas} />
-            <PrivateRouter exact path="/tags" component={Tags} />
+            <Switch>
+              <PrivateRouter exact path="/" component={LandingPage} />
+              <PrivateRouter exact path="/acessos" component={Acessos} />
+              <PrivateRouter exact path="/desenvolvedoras" component={Desenvolvedoras} />
+              <PrivateRouter exact path="/jogos" component={Jogos} />
+              <PrivateRouter exact path="/lojas" component={Lojas} />
+              <PrivateRouter exact path="/noticias" component={Noticias} />
+              <PrivateRouter exact path="/plataformas" component={Plataformas} />
+              <PrivateRouter exact path="/tags" component={Tags} />
+            </Switch>
             <Footer />
           </Content>
         </Switch>

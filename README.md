@@ -11,6 +11,7 @@ Configure o arquivo .env com:
 
 ```
 REACT_APP_API_URL=<URLDoBackEnd>
+REACT_APP_GOOGLE_CLIENT_ID=<clientIdDoGoogle>
 ```
 
 E rode a aplicação através do comando:

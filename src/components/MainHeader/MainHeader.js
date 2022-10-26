@@ -19,7 +19,6 @@ import { Link } from 'react-router-dom';
 const MainHeader = () => {
 
   const logout = (e) => {
-    console.log("Tô deslogando, valeu")
     localStorage.removeItem("token");
     window.location.href = '#/login'
   }
