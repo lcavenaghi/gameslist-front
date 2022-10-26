@@ -36,36 +36,37 @@ export class TabelaAcessos extends React.Component {
                 return response.json();
             }
         }).then(response => {
-            this.setState({ data: response , loadingAtivo: false});
+            this.setState({ data: response, loadingAtivo: false });
         })
     }
 
     render() {
         return (
-            <Table size="lg" useZebraStyles={false}>
-            <Loading active={this.state.loadingAtivo}></Loading>
-                <TableHead>
-                    <TableRow key="headers">
-                        <TableHeader id="usuario" key="usuario">
-                            Usuário
-                        </TableHeader>
-                        <TableHeader id="data" key="data">
-                            Data de acesso
-                        </TableHeader>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {this.state.data.map((row) => (
-                        <TableRow key={row.id}>
-                            {Object.keys(row)
-                                .map((key) => {
-                                    return <TableCell key={key}>{row[key]}</TableCell>;
-                                })}
+            <>
+                <Loading active={this.state.loadingAtivo}></Loading>
+                <Table size="lg" useZebraStyles={false}>
+                    <TableHead>
+                        <TableRow key="headers">
+                            <TableHeader id="usuario" key="usuario">
+                                Usuário
+                            </TableHeader>
+                            <TableHeader id="data" key="data">
+                                Data de acesso
+                            </TableHeader>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-
+                    </TableHead>
+                    <TableBody>
+                        {this.state.data.map((row) => (
+                            <TableRow key={row.id}>
+                                {Object.keys(row)
+                                    .map((key) => {
+                                        return <TableCell key={key}>{row[key]}</TableCell>;
+                                    })}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </>
         );
     }
 }
