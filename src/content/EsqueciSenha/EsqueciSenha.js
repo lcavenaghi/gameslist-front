@@ -5,14 +5,17 @@ import {
   TextInput,
   Button,
   Column,
-  InlineNotification
+  InlineNotification,
+  Loading
 } from '@carbon/react';
 
 const EsqueciSenha = () => {
   const [email, setEmail] = useState('')
   const [mensagemDeErro, setmensagemDeErro] = useState('')
+  const [loadingAtivo, setLoadingAtivo] = useState(false)
 
   const onSubmitClick = (e) => {
+    setLoadingAtivo(true);
     e.preventDefault();
     let opts = {
       'email': email
@@ -30,11 +33,13 @@ const EsqueciSenha = () => {
           text = JSON.parse(text);
           if (Object.hasOwn(text, 'errorMessage')) {
             setmensagemDeErro(text.errorMessage);
+            setLoadingAtivo(false);
             throw new Error(text.errorMessage);
           }
           else{
             text = JSON.stringify(text);
             setmensagemDeErro(text);
+            setLoadingAtivo(false);
             throw new Error(text);
           }
         })
@@ -53,6 +58,7 @@ const EsqueciSenha = () => {
 
   return (
     <div className="externalContainer">
+    <Loading active={loadingAtivo}></Loading>
       <div className="container">
         <Column className="login-page__banner">
           <h1 className="login-page__heading">
