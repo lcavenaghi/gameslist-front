@@ -6,7 +6,8 @@ import {
   TextInput,
   Button,
   Column,
-  InlineNotification
+  InlineNotification,
+  Loading
 } from '@carbon/react';
 import { ArrowRight } from '@carbon/react/icons';
 import { GoogleLogin } from 'react-google-login';
@@ -15,6 +16,7 @@ import { gapi } from 'gapi-script';
 const Login = () => {
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
+  const [loadingAtivo, setLoadingAtivo] = useState(false)
   const [mensagemDeErro, setmensagemDeErro] = useState('')
   const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
   const initClient = () => {
@@ -26,6 +28,7 @@ const Login = () => {
   gapi.load('client:auth2', initClient);
 
   const onGoogleSuccess = (res) => {
+    setLoadingAtivo(true);
     console.log("Acessando via google");
     let opts = {
       'token': res.tokenId
@@ -43,11 +46,13 @@ const Login = () => {
           text = JSON.parse(text);
           if (Object.hasOwn(text, 'errorMessage')) {
             setmensagemDeErro(text.errorMessage);
+            setLoadingAtivo(false);
             throw new Error(text.errorMessage);
           }
           else {
             text = JSON.stringify(text);
             setmensagemDeErro(text);
+            setLoadingAtivo(false);
             throw new Error(text);
           }
         })
@@ -66,6 +71,7 @@ const Login = () => {
   };
 
   const onSubmitClick = (e) => {
+    setLoadingAtivo(true);
     e.preventDefault();
     let opts = {
       'email': email,
@@ -84,11 +90,13 @@ const Login = () => {
           text = JSON.parse(text);
           if (Object.hasOwn(text, 'errorMessage')) {
             setmensagemDeErro(text.errorMessage);
+            setLoadingAtivo(false);
             throw new Error(text.errorMessage);
           }
           else {
             text = JSON.stringify(text);
             setmensagemDeErro(text);
+            setLoadingAtivo(false);
             throw new Error(text);
           }
         })
@@ -110,8 +118,9 @@ const Login = () => {
     setSenha(e.target.value)
   }
 
-  return (
+  return (    
     <div className="externalContainer">
+      <Loading active={loadingAtivo}></Loading>
       <div className="container">
         <Column className="login-page__banner">
           <h1 className="login-page__heading">

@@ -5,7 +5,8 @@ import {
   Button,
   Column,
   Form,
-  InlineNotification
+  InlineNotification,
+  Loading
 } from '@carbon/react';
 
 const Registro = () => {
@@ -14,8 +15,10 @@ const Registro = () => {
   const [sobrenome, setSobrenome] = useState('')
   const [senha, setSenha] = useState('')
   const [mensagemDeErro, setmensagemDeErro] = useState('')
+  const [loadingAtivo, setLoadingAtivo] = useState(false)
 
   const onSubmitClick = (e) => {
+    setLoadingAtivo(true);
     e.preventDefault();
     let opts = {
       'email': email,
@@ -37,11 +40,13 @@ const Registro = () => {
           text = JSON.parse(text)
           if (Object.hasOwn(text, 'errorMessage')) {
             setmensagemDeErro(text.errorMessage)
+            setLoadingAtivo(false);
             throw new Error(text.errorMessage);
           }
-          else{
+          else {
             text = JSON.stringify(text)
             setmensagemDeErro(text)
+            setLoadingAtivo(false);
             throw new Error(text);
           }
         })
@@ -71,10 +76,11 @@ const Registro = () => {
   const handleSenhaChange = (e) => {
     setSenha(e.target.value)
   }
-  
+
 
   return (
     <div className="externalContainer">
+      <Loading active={loadingAtivo}></Loading>
       <div className="container">
         <Column className="login-page__banner">
           <h1 className="login-page__heading">
