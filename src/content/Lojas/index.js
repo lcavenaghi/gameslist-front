@@ -1,2 +1,3 @@
 import Lojas from './Lojas';
-export default Lojas;
+import NovaLoja from './NovaLoja';
+export { Lojas, NovaLoja };

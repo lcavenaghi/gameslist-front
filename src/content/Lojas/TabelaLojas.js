@@ -9,17 +9,44 @@ import {
     TableCell,
     Button
 } from '@carbon/react';
-import { Edit, TrashCan } from '@carbon/react/icons';
+import { Edit, TrashCan, Add } from '@carbon/react/icons';
 
-function apagar(id) {
-    alert("apagando " + id)
-}
-
-function editar(id) {
-    alert("editando " + id)
-}
 
 export class TabelaLojas extends React.Component {
+    apagar(id) {
+        if (window.confirm('Tem certeza que deseja excluir?')) {
+            this.setState({ loadingAtivo: true });
+            fetch(process.env.REACT_APP_API_URL + '/loja/' + id, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                }
+            }).then((response) => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        text = JSON.parse(text);
+                        throw new Error(text);
+                    })
+                }
+                else {
+                    this.setState({ loadingAtivo: false });
+                    this.forceUpdate();
+                    document.getElementById("tablerow"+id).remove();
+                }
+            })
+        }
+    }
+
+    editar(id) {
+        alert("editando " + id)
+    }
+
+    adicionar() {
+        window.location.href = '/adicionaloja'
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -54,6 +81,7 @@ export class TabelaLojas extends React.Component {
         return (
             <>
                 <Loading active={this.state.loadingAtivo}></Loading>
+                <Button kind="primary" renderIcon={Add} onClick={() => { this.adicionar() }}> Adicionar </Button>
                 <Table size="lg" useZebraStyles={false}>
                     <TableHead>
                         <TableRow key="headers">
@@ -76,7 +104,7 @@ export class TabelaLojas extends React.Component {
                     </TableHead>
                     <TableBody>
                         {this.state.data.map(loja =>
-                            <TableRow key={loja._id}>
+                            <TableRow id={"tablerow"+loja._id} key={loja._id}>
                                 <TableCell key={loja.nome}>{loja.nome}</TableCell>
                                 <TableCell key={loja.fundacao}>{loja.fundacao}</TableCell>
                                 <TableCell key={loja.link}><a target="_blank" rel="noreferrer" href={loja.link}>{loja.link}</a></TableCell>
@@ -86,7 +114,7 @@ export class TabelaLojas extends React.Component {
                                         kind="ghost"
                                         renderIcon={Edit}
                                         iconDescription="Editar"
-                                        onClick={() => { editar(loja._id) }}
+                                        onClick={() => { this.editar(loja._id) }}
                                     />
                                 </TableCell>
                                 <TableCell key="apagar">
@@ -95,7 +123,7 @@ export class TabelaLojas extends React.Component {
                                         kind="ghost"
                                         renderIcon={TrashCan}
                                         iconDescription="Apagar"
-                                        onClick={() => { apagar(loja._id) }}
+                                        onClick={() => { this.apagar(loja._id) }}
                                     />
                                 </TableCell>
                             </TableRow>

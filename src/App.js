@@ -15,7 +15,7 @@ import Registro from './content/Registro';
 import Acessos from './content/Acessos';
 import Desenvolvedoras from './content/Desenvolvedoras';
 import Jogos from './content/Jogos';
-import Lojas from './content/Lojas';
+import {Lojas, NovaLoja} from './content/Lojas';
 import Noticias from './content/Noticias';
 import Plataformas from './content/Plataformas';
 import Tags from './content/Tags';
@@ -40,6 +40,7 @@ class App extends Component {
               <PrivateRouter exact path="/desenvolvedoras" component={Desenvolvedoras} />
               <PrivateRouter exact path="/jogos" component={Jogos} />
               <PrivateRouter exact path="/lojas" component={Lojas} />
+              <PrivateRouter exact path="/adicionaloja" component={NovaLoja} />
               <PrivateRouter exact path="/noticias" component={Noticias} />
               <PrivateRouter exact path="/plataformas" component={Plataformas} />
               <PrivateRouter exact path="/tags" component={Tags} />
