@@ -65,7 +65,7 @@ const MainHeader = () => {
                 <HeaderMenuItem element={Link} to="/acessos">
                   Meus Acessos
                 </HeaderMenuItem>
-                <HeaderMenuItem element={Link} to="/notícias">
+                <HeaderMenuItem element={Link} to="/noticias">
                   Notícias
                 </HeaderMenuItem>
                 <HeaderMenuItem element={Link} to="/jogos">
