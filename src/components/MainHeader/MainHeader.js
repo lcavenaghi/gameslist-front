@@ -41,9 +41,7 @@ const MainHeader = () => {
             <HeaderMenuItem element={Link} to="/acessos">
               Meus Acessos
             </HeaderMenuItem>
-            <HeaderMenuItem element={Link} to="/noticias">
-              Notícias
-            </HeaderMenuItem>
+            {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/noticias"> Notícias </HeaderMenuItem>}
             <HeaderMenuItem element={Link} to="/jogos">
               Jogos
             </HeaderMenuItem>
@@ -65,9 +63,7 @@ const MainHeader = () => {
                 <HeaderMenuItem element={Link} to="/acessos">
                   Meus Acessos
                 </HeaderMenuItem>
-                <HeaderMenuItem element={Link} to="/noticias">
-                  Notícias
-                </HeaderMenuItem>
+                {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/noticias"> Notícias </HeaderMenuItem>}
                 <HeaderMenuItem element={Link} to="/jogos">
                   Jogos
                 </HeaderMenuItem>

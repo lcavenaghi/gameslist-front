@@ -9,7 +9,7 @@ const LandingPage = () => {
     <Grid className="landing-page" fullWidth>
       <Column lg={16} md={8} sm={4} className="landing-page__banner">
         <h1 className="landing-page__heading">
-          GamesList
+          Notícias
         </h1>
       </Column>
       <Column lg={16} md={8} sm={4} className="landing-page__r2">
