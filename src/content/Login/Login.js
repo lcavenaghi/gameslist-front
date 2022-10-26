@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Form,
   Stack,
@@ -17,6 +17,13 @@ const Login = () => {
   const [senha, setSenha] = useState('')
   const [mensagemDeErro, setmensagemDeErro] = useState('')
   const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const initClient = () => {
+    gapi.client.init({
+      clientId: clientId,
+      scope: []
+    });
+  };
+  gapi.load('client:auth2', initClient);
 
   const onGoogleSuccess = (res) => {
     console.log("Acessando via google");
@@ -57,16 +64,6 @@ const Login = () => {
   const onGoogleFailure = (err) => {
     setmensagemDeErro(err);
   };
-
-  useEffect(() => {
-    const initClient = () => {
-      gapi.client.init({
-        clientId: clientId,
-        scope: []
-      });
-    };
-    gapi.load('client:auth2', initClient);
-  });
 
   const onSubmitClick = (e) => {
     e.preventDefault();
