@@ -41,18 +41,18 @@ const MainHeader = () => {
             <HeaderMenuItem element={Link} to="/acessos">
               Meus Acessos
             </HeaderMenuItem>
-            {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/noticias"> Notícias </HeaderMenuItem>}
             <HeaderMenuItem element={Link} to="/jogos">
               Jogos
             </HeaderMenuItem>
-            {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/tags">Tags</HeaderMenuItem>}
-            {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/plataformas"> Plataformas </HeaderMenuItem>}
             <HeaderMenuItem element={Link} to="/lojas">
               Lojas
             </HeaderMenuItem>
             <HeaderMenuItem element={Link} to="/desenvolvedoras">
               Desenvolvedoras
             </HeaderMenuItem>
+            {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/noticias"> Notícias </HeaderMenuItem>}
+            {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/tags">Tags</HeaderMenuItem>}
+            {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/plataformas"> Plataformas </HeaderMenuItem>}
           </HeaderNavigation>
           <SideNav
             aria-label="Side navigation"
@@ -63,18 +63,18 @@ const MainHeader = () => {
                 <HeaderMenuItem element={Link} to="/acessos">
                   Meus Acessos
                 </HeaderMenuItem>
-                {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/noticias"> Notícias </HeaderMenuItem>}
                 <HeaderMenuItem element={Link} to="/jogos">
                   Jogos
                 </HeaderMenuItem>
-                {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/tags">Tags</HeaderMenuItem>}
-                {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/plataformas"> Plataformas </HeaderMenuItem>}
                 <HeaderMenuItem element={Link} to="/lojas">
                   Lojas
                 </HeaderMenuItem>
                 <HeaderMenuItem element={Link} to="/desenvolvedoras">
                   Desenvolvedoras
                 </HeaderMenuItem>
+                {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/noticias"> Notícias </HeaderMenuItem>}
+                {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/tags">Tags</HeaderMenuItem>}
+                {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/plataformas"> Plataformas </HeaderMenuItem>}
               </HeaderSideNavItems>
             </SideNavItems>
           </SideNav>
