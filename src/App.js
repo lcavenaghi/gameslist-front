@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './app.scss';
 import { Content, Theme } from '@carbon/react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 import MainHeader from './components/MainHeader';
 import Footer from './components/Footer';
@@ -19,6 +19,7 @@ import {Lojas, NovaLoja} from './content/Lojas';
 import Noticias from './content/Noticias';
 import Plataformas from './content/Plataformas';
 import Tags from './content/Tags';
+import PublicRouter from './components/PublicRouter';
 
 class App extends Component {
   render() {
@@ -26,10 +27,10 @@ class App extends Component {
       <>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/registro" component={Registro} />
-          <Route exact path="/senha" component={EsqueciSenha} />
-          <Route exact path="/resetsenha" component={ResetSenha} />
+          <PublicRouter exact path="/login" component={Login} />
+          <PublicRouter exact path="/registro" component={Registro} />
+          <PublicRouter exact path="/senha" component={EsqueciSenha} />
+          <PublicRouter exact path="/resetsenha" component={ResetSenha} />
           <Content>
             <Theme theme="g100">
               <MainHeader />
