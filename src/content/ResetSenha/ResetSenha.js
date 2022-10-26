@@ -20,9 +20,9 @@ const ResetSenha = () => {
       'senha': senha
     }
     fetch(process.env.REACT_APP_API_URL + '/senha', {
-      method: 'patch',
+      method: 'PATCH',
       headers: {
-        'Accept': 'application/json',
+        'accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(opts)
