@@ -15,7 +15,7 @@ import {
 } from '@carbon/react';
 import { Logout } from '@carbon/react/icons';
 import { Link } from 'react-router-dom';
-import checaPerfil from '../../util/checaPerfil';
+import { checaPerfil } from '../../util/checaPerfil';
 
 const MainHeader = () => {
 

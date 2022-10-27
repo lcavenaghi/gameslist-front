@@ -1,19 +1,19 @@
 import React from 'react';
-import { Redirect, Route} from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
+import { tokenAutenticado } from '../../util/checaPerfil';
 
-const isAuthenticated = () => localStorage.getItem('token');
 
-const PrivateRouter = ({component: Component, ...rest}) => {
+const PrivateRouter = ({ component: Component, ...rest }) => {
     return (
         <Route
             {...rest}
-            render={props => 
-                    isAuthenticated() ? (
-                        <Component {...props} />
-                    ) : (
-                        <Redirect to={{pathname:"/login", state: {from:props.location}}} />
-                    )
-                }
+            render={props =>
+                tokenAutenticado(localStorage.getItem('token')) ? (
+                    <Component {...props} />
+                ) : (
+                    <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+                )
+            }
         />
     )
 }

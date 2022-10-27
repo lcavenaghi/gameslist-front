@@ -8,6 +8,16 @@ function checaPerfil(perfis) {
     }
 }
 
+function tokenAutenticado(token) {
+    if (token) {
+        let tokenDate = parseJwt(token).exp;
+        let now = new Date()/1000;
+        return tokenDate > now;
+    }
+    else
+        return false
+}
+
 function parseJwt(token) {
     let base64Url = token.split('.')[1];
     let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -17,4 +27,4 @@ function parseJwt(token) {
     return JSON.parse(jsonPayload);
 }
 
-export default checaPerfil;
+export {checaPerfil, tokenAutenticado};
