@@ -1,2 +1,4 @@
 import Desenvolvedoras from './Desenvolvedoras';
-export default Desenvolvedoras;
+import NovaDesevolvedora from './NovaDesenvolvedora';
+import { EditaDesenvolvedora } from './EditaDesenvolvedora';
+export { Desenvolvedoras, NovaDesevolvedora, EditaDesenvolvedora };

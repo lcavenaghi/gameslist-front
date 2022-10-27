@@ -13,7 +13,7 @@ import {
 
 
 
-export class EditaLoja extends React.Component {
+export class EditaDesenvolvedora extends React.Component {
     formataData(data) {
         data = data.split("/");
         return (`${data[2]}-${data[0]}-${data[1]}`);
@@ -31,11 +31,11 @@ export class EditaLoja extends React.Component {
             loadingAtivo: false,
             nome: "",
             fundacao: "",
-            link: ""
+            localizacao: ""
         }
     }
     componentDidMount() {
-        fetch(process.env.REACT_APP_API_URL + '/loja/' + new URL(window.location.href).searchParams.get('id'), {
+        fetch(process.env.REACT_APP_API_URL + '/desenvolvedora/' + new URL(window.location.href).searchParams.get('id'), {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -53,7 +53,7 @@ export class EditaLoja extends React.Component {
                 return response.json();
             }
         }).then(response => {
-            this.setState({ nome: response.nome, fundacao: this.desformataData(response.fundacao), link: response.link, loadingAtivo: false });
+            this.setState({ nome: response.nome, fundacao: this.desformataData(response.fundacao), localizacao: response.localizacao, loadingAtivo: false });
         })
     }
 
@@ -66,8 +66,8 @@ export class EditaLoja extends React.Component {
         this.setState({ fundacao: document.getElementById("fundacao").value });
     }
 
-    handleLinkChange = (e) => {
-        this.setState({ link: e.target.value });
+    handleLocalizacaoChange = (e) => {
+        this.setState({ localizacao: e.target.value });
     }
 
     onSubmitClick = (e) => {
@@ -75,9 +75,9 @@ export class EditaLoja extends React.Component {
         let opts = {
             'nome': this.state.nome,
             'fundacao': this.formataData(this.state.fundacao),
-            'link': this.state.link
+            'localizacao': this.state.localizacao
         }
-        fetch(process.env.REACT_APP_API_URL + '/loja/' + new URL(window.location.href).searchParams.get('id'), {
+        fetch(process.env.REACT_APP_API_URL + '/desenvolvedora/' + new URL(window.location.href).searchParams.get('id'), {
             method: 'PATCH',
             headers: {
                 'Accept': 'application/json',
@@ -104,7 +104,7 @@ export class EditaLoja extends React.Component {
                 return response.json();
             }
         }).then(data => {
-            window.location.href = '/lojas'
+            window.location.href = '/desenvolvedoras'
         })
     }
 
@@ -115,7 +115,7 @@ export class EditaLoja extends React.Component {
                 <Grid className="landing-page" fullWidth>
                     <Column lg={16} md={8} sm={4} className="landing-page__banner">
                         <h1 className="landing-page__heading">
-                            Lojas
+                            Desenvolvedoras
                         </h1>
                     </Column>
                     <Column lg={8} md={8} sm={4}>
@@ -130,11 +130,11 @@ export class EditaLoja extends React.Component {
                                         value={this.state.fundacao}
                                     />
                                 </DatePicker>
-                                <TextInput id="link" placeholder="Digite o link" required labelText="Link:" onChange={this.handleLinkChange} value={this.state.link} />
+                                <TextInput id="localizacao" placeholder="Digite a localização" required labelText="Localização:" onChange={this.handleLocalizacaoChange} value={this.state.localizacao} />
                             </Stack>
                             <br />
                             <Stack gap={2} orientation="horizontal">
-                                <Button href="/lojas" kind="secondary">
+                                <Button href="/desenvolvedoras" kind="secondary">
                                     Cancelar
                                 </Button>
                                 <Button kind="primary" type="submit">
