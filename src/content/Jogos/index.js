@@ -1,2 +1,3 @@
 import Jogos from './Jogos';
-export {Jogos};
+import { NovoJogo } from './NovoJogo';
+export { NovoJogo, Jogos };
