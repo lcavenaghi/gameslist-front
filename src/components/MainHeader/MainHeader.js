@@ -53,6 +53,7 @@ const MainHeader = () => {
             {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/noticias"> Notícias </HeaderMenuItem>}
             {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/tags">Tags</HeaderMenuItem>}
             {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/plataformas"> Plataformas </HeaderMenuItem>}
+            {checaPerfil(["admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/usuarios"> Usuários </HeaderMenuItem>}
           </HeaderNavigation>
           <SideNav
             aria-label="Side navigation"
@@ -75,6 +76,7 @@ const MainHeader = () => {
                 {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/noticias"> Notícias </HeaderMenuItem>}
                 {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/tags">Tags</HeaderMenuItem>}
                 {checaPerfil(["gestor", "admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/plataformas"> Plataformas </HeaderMenuItem>}
+                {checaPerfil(["admin"]) === false ? <></> : <HeaderMenuItem element={Link} to="/usuarios"> Usuários </HeaderMenuItem>}
               </HeaderSideNavItems>
             </SideNavItems>
           </SideNav>

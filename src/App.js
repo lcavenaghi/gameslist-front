@@ -20,6 +20,7 @@ import { Noticias, NovaNoticia, EditaNoticia } from './content/Noticias';
 import { Plataformas, NovaPlataforma, EditaPlataforma } from './content/Plataformas';
 import { Tags, EditaTag, NovaTag } from './content/Tags';
 import PublicRouter from './components/PublicRouter';
+import { EditaUsuario, Usuarios } from './content/Usuarios';
 
 class App extends Component {
   render() {
@@ -61,6 +62,10 @@ class App extends Component {
               <PrivateRouter exact path="/plataformas" component={Plataformas} />
               <PrivateRouter exact path="/adicionaplataforma" component={NovaPlataforma} />
               <PrivateRouter exact path="/editaplataforma" component={EditaPlataforma} />
+
+              
+              <PrivateRouter exact path="/usuarios" component={Usuarios} />              
+              <PrivateRouter exact path="/editausuario" component={EditaUsuario} />
             </Switch>
             <Footer />
           </Content>
