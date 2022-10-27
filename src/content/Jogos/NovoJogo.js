@@ -9,8 +9,8 @@ import {
     Stack,
     DatePicker,
     DatePickerInput,
-    ComboBox,
-    DropDown
+    Dropdown,
+    MultiSelect
 } from '@carbon/react';
 
 
@@ -28,14 +28,109 @@ export class NovoJogo extends React.Component {
             desenvolvedora: "",
             loja: "",
             tags: "",
-            listaPlataformas: [{ "content": "plataforma 1", "value": "plataforma 1" }],
-            listaDesenvolvedoras: "",
-            listaLojas: "",
-            listaTags: ""
+            listaPlataformas: [],
+            listaDesenvolvedoras: [],
+            listaLojas: [],
+            listaTags: []
         }
     }
     componentDidMount() {
-        console.log("vou fazer o fetch")
+        this.carregaPlataformas();
+        this.carregaDesenvolvedoras();
+        this.carregaLojas();
+        this.carregaTags();
+    }
+
+    carregaPlataformas() {
+        fetch(process.env.REACT_APP_API_URL + '/plataformas', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
+            }
+        }).then((response) => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    text = JSON.parse(text);
+                    throw new Error(text);
+                })
+            }
+            else {
+                return response.json();
+            }
+        }).then(response => {
+            this.setState({ listaPlataformas: response.map((item) => { return { "id": item.nome, "label": item.nome } }) });
+        })
+    }
+
+    carregaDesenvolvedoras() {
+        fetch(process.env.REACT_APP_API_URL + '/desenvolvedoras', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
+            }
+        }).then((response) => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    text = JSON.parse(text);
+                    throw new Error(text);
+                })
+            }
+            else {
+                return response.json();
+            }
+        }).then(response => {
+            this.setState({ listaDesenvolvedoras: response.map((item) => { return { "id": item.nome, "label": item.nome } }) });
+        })
+    }
+
+    carregaLojas() {
+        fetch(process.env.REACT_APP_API_URL + '/lojas', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
+            }
+        }).then((response) => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    text = JSON.parse(text);
+                    throw new Error(text);
+                })
+            }
+            else {
+                return response.json();
+            }
+        }).then(response => {
+            this.setState({ listaLojas: response.map((item) => { return { "id": item.nome, "label": item.nome } }) });
+        })
+    }
+
+    carregaTags() {
+        fetch(process.env.REACT_APP_API_URL + '/tags', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
+            }
+        }).then((response) => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    text = JSON.parse(text);
+                    throw new Error(text);
+                })
+            }
+            else {
+                return response.json();
+            }
+        }).then(response => {
+            this.setState({ listaTags: response.map((item) => { return { "id": item.nome, "label": item.nome } }) });
+        })
     }
 
     onSubmitClick = (e) => {
@@ -99,19 +194,19 @@ export class NovoJogo extends React.Component {
     }
 
     handlePlataformaChange = (e) => {
-        this.setState({ plataforma: e.target.value });
+        this.setState({ plataforma: e.selectedItem.id });
     }
 
     handleDesenvolvedoraChange = (e) => {
-        this.setState({ desenvolvedora: e.target.value });
+        this.setState({ desenvolvedora: e.selectedItem.id });
     }
 
     handleLojaChange = (e) => {
-        this.setState({ loja: e.target.value });
+        this.setState({ loja: e.selectedItem.id });
     }
 
     handleTagsChange = (e) => {
-        this.setState({ tags: e.target.value });
+        this.setState({ tags: e.selectedItems.map((item) => item.id) });
     }
 
     formataData(data) {
@@ -141,12 +236,44 @@ export class NovoJogo extends React.Component {
                                         value={this.state.dataLancamento}
                                     />
                                 </DatePicker>
-                                <TextInput id="descricao" placeholder="Digite a Descrição" required labelText="Descrição:" onChange={this.handleDescricaoChange} value={this.state.descricao} />
+                                <TextInput id="descricao" placeholder="Digite a Descrição" required labelText="Descrição:" onChange={this.handleDescricaoChange} value={this.state.descricao} />                                
+                                <Dropdown
+                                    ariaLabel="Plataforma"
+                                    id="plataforma"
+                                    items={this.state.listaPlataformas}
+                                    label="Selecione a plataforma"
+                                    onChange={this.handlePlataformaChange}
+                                    titleText="Plataforma:"
+                                    value={this.state.plataforma}
+                                />
+                                <Dropdown
+                                    ariaLabel="Desenvolvedora"
+                                    id="desenvolvedora"
+                                    items={this.state.listaDesenvolvedoras}
+                                    label="Selecione a desenvolvedora"
+                                    onChange={this.handleDesenvolvedoraChange}
+                                    titleText="Desenvolvedora:"
+                                    value={this.state.desenvolvedora}
+                                />
+                                <Dropdown
+                                    ariaLabel="Loja"
+                                    id="loja"
+                                    items={this.state.listaLojas}
+                                    label="Selecione a loja"
+                                    onChange={this.handleLojaChange}
+                                    titleText="Loja:"
+                                    value={this.state.loja}
+                                />
                                 <TextInput id="link" placeholder="Digite o Link" required labelText="Link:" onChange={this.handleLinkChange} value={this.state.link} />
-                                <TextInput id="plataforma" placeholder="Digite a Plataforma" required labelText="Plataforma:" onChange={this.handlePlataformaChange} value={this.state.plataforma} />
-                                <TextInput id="desenvolvedora" placeholder="Digite a Desenvolvedora" required labelText="Desenvolvedora:" onChange={this.handleDesenvolvedoraChange} value={this.state.desenvolvedora} />
-                                <TextInput id="loja" placeholder="Digite a Loja" required labelText="Loja:" onChange={this.handleLojaChange} value={this.state.loja} />
-                                <TextInput id="tags" placeholder="Digite as Tags" required labelText="Tags:" onChange={this.handleTagsChange} value={this.state.tags} />
+                                <MultiSelect
+                                    ariaLabel="tag"
+                                    id="tag"
+                                    items={this.state.listaTags}
+                                    label="Selecione as tags"
+                                    onChange={this.handleTagsChange}
+                                    titleText="Tags:"
+                                    value={this.state.tags}
+                                />
                             </Stack>
                             <br />
                             <Stack gap={2} orientation="horizontal">
