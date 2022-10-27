@@ -17,8 +17,8 @@ import { Desenvolvedoras, EditaDesenvolvedora, NovaDesevolvedora } from './conte
 import Jogos from './content/Jogos';
 import { Lojas, NovaLoja, EditaLoja } from './content/Lojas';
 import { Noticias, NovaNoticia, EditaNoticia } from './content/Noticias';
-import Plataformas from './content/Plataformas';
-import {Tags, EditaTag, NovaTag } from './content/Tags';
+import { Plataformas, NovaPlataforma, EditaPlataforma } from './content/Plataformas';
+import { Tags, EditaTag, NovaTag } from './content/Tags';
 import PublicRouter from './components/PublicRouter';
 
 class App extends Component {
@@ -59,6 +59,8 @@ class App extends Component {
               <PrivateRouter exact path="/editatag" component={EditaTag} />
 
               <PrivateRouter exact path="/plataformas" component={Plataformas} />
+              <PrivateRouter exact path="/adicionaplataforma" component={NovaPlataforma} />
+              <PrivateRouter exact path="/editaplataforma" component={EditaPlataforma} />
             </Switch>
             <Footer />
           </Content>
