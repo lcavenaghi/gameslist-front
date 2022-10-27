@@ -133,7 +133,7 @@ export class BlocoJogos extends React.Component {
                 <Loading active={this.state.loadingAtivo}></Loading>
                 <Column lg={16} md={8} sm={4}>
                     <Stack gap={2} orientation="horizontal">
-                        <Button kind="primary" renderIcon={Add} onClick={() => { this.adicionar() }}> Adicionar </Button>                        
+                        <Button kind="primary" renderIcon={Add} onClick={() => { this.adicionar() }}> Adicionar </Button>
                         <CSVLink className="cds--btn cds--btn--secondary" data={this.state.data} >
                             Exportar jogos
                         </CSVLink>
@@ -153,7 +153,7 @@ export class BlocoJogos extends React.Component {
                             <p><strong>Plataforma:</strong> {jogo.plataforma}</p>
                             <p><strong>Desenvolvido por :</strong> {jogo.desenvolvedora}</p>
                             <p><strong>Comprar:</strong> <a target="_blank" rel="noreferrer" href={jogo.link}>{jogo.loja}</a></p>
-                            <p><strong>Tags:</strong> {jogo.tags}</p>
+                            <p><strong>Tags:</strong> {jogo.tags.join(', ')}</p>
                             <div className='areaBotoesTile'>
                                 <Stack gap={2} orientation="horizontal">
                                     <Button
