@@ -6,30 +6,22 @@ import {
     Column,
     Loading,
     Grid,
-    Stack,
-    DatePicker,
-    DatePickerInput
+    Stack
 } from '@carbon/react';
 
 
 
-const NovaNoticia = () => {
-    const [titulo, setTitulo] = useState('')
-    const [data, setData] = useState('')
-    const [resumo, setResumo] = useState('')
-    const [link, setLink] = useState('')
+const NovaTag = () => {
+    const [nome, setNome] = useState('')
     const [loadingAtivo, setLoadingAtivo] = useState(false)
 
     const onSubmitClick = (e) => {
         setLoadingAtivo(true);
         e.preventDefault();
         let opts = {
-            'titulo': titulo,
-            'data': formataData(data),
-            'resumo': resumo,
-            'link': link
+            'nome': nome
         }
-        fetch(process.env.REACT_APP_API_URL + '/noticias', {
+        fetch(process.env.REACT_APP_API_URL + '/tags', {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
@@ -56,29 +48,12 @@ const NovaNoticia = () => {
                 return response.json();
             }
         }).then(data => {
-            window.location.href = '/noticias'
+            window.location.href = '/tags'
         })
     }
 
-    const handleTituloChange = (e) => {
-        setTitulo(e.target.value)
-    }
-
-    const handleDataChange = (e) => {
-        setData(document.getElementById("data").value)
-    }
-
-    const handleResumoChange = (e) => {
-        setResumo(e.target.value)
-    }
-
-    const handleLinkChange = (e) => {
-        setLink(e.target.value)
-    }
-
-    const formataData = (data) => {
-        data = data.split("/");
-        return (`${data[2]}-${data[0]}-${data[1]}`)
+    const handleNomeChange = (e) => {
+        setNome(e.target.value)
     }
 
     return (
@@ -87,27 +62,17 @@ const NovaNoticia = () => {
             <Grid className="landing-page" fullWidth>
                 <Column lg={16} md={8} sm={4} className="landing-page__banner">
                     <h1 className="landing-page__heading">
-                        Notícias
+                        Tags
                     </h1>
                 </Column>
                 <Column lg={8} md={8} sm={4}>
                     <Form onSubmit={onSubmitClick} className="formRegistro">
                         <Stack gap={7}>
-                            <TextInput id="titulo" placeholder="Digite o Título" required labelText="Título:" onChange={handleTituloChange} value={titulo} />
-                            <DatePicker datePickerType="single" onChange={handleDataChange}>
-                                <DatePickerInput
-                                    labelText="Publicação:"
-                                    id="data"
-                                    size="md"
-                                    value={data}
-                                />
-                            </DatePicker>
-                            <TextInput id="resumo" placeholder="Digite o resumo" required labelText="Resumo:" onChange={handleResumoChange} value={resumo} />
-                            <TextInput id="link" placeholder="Digite o link" required labelText="Link:" onChange={handleLinkChange} value={link} />
+                            <TextInput id="nome" placeholder="Digite o Nome" required labelText="Nome:" onChange={handleNomeChange} value={nome} />
                         </Stack>
                         <br />
                         <Stack gap={2} orientation="horizontal">
-                            <Button href="/noticias" kind="secondary">
+                            <Button href="/tags" kind="secondary">
                                 Cancelar
                             </Button>
                             <Button kind="primary" type="submit">
@@ -121,4 +86,4 @@ const NovaNoticia = () => {
     );
 }
 
-export default NovaNoticia;
+export default NovaTag;
