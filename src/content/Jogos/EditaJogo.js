@@ -13,11 +13,12 @@ import {
     MultiSelect
 } from '@carbon/react';
 
-export class NovoJogo extends React.Component {
+
+export class EditaJogo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loadingAtivo: false,
+            loadingAtivo: true,
             nome: "",
             dataLancamento: "",
             descricao: "",
@@ -25,18 +26,47 @@ export class NovoJogo extends React.Component {
             plataforma: "",
             desenvolvedora: "",
             loja: "",
-            tags: "",
+            tags: [],
             listaPlataformas: [],
             listaDesenvolvedoras: [],
             listaLojas: [],
             listaTags: []
         }
     }
+
     componentDidMount() {
         this.carregaPlataformas();
         this.carregaDesenvolvedoras();
         this.carregaLojas();
         this.carregaTags();
+        this.carregaJogo();
+    }
+
+    carregaJogo() {
+        fetch(process.env.REACT_APP_API_URL + '/jogo/' + new URL(window.location.href).searchParams.get('id'), {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
+            }
+        }).then((response) => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    text = JSON.parse(text);
+                    throw new Error(text);
+                })
+            }
+            else {
+                return response.json();
+            }
+        }).then(response => {
+            this.setState({
+                nome: response.nome, dataLancamento: this.desformataData(response.dataLancamento), descricao: response.descricao,
+                link: response.link, plataforma: response.plataforma, desenvolvedora: response.desenvolvedora,
+                loja: response.loja, tags: response.tags, loadingAtivo: false,
+            });
+        })
     }
 
     carregaPlataformas() {
@@ -129,6 +159,11 @@ export class NovoJogo extends React.Component {
         }).then(response => {
             this.setState({ listaTags: response.map((item) => { return { "id": item.nome, "label": item.nome } }) });
         })
+    }
+
+    desformataData(data) {
+        data = data.split("-");
+        return (`${data[1]}/${data[2]}/${data[0]}`);
     }
 
     onSubmitClick = (e) => {
@@ -242,7 +277,7 @@ export class NovoJogo extends React.Component {
                                     label="Selecione a plataforma"
                                     onChange={this.handlePlataformaChange}
                                     titleText="Plataforma:"
-                                    value={this.state.plataforma}
+                                    selectedItem={this.state.plataforma}
                                 />
                                 <Dropdown
                                     ariaLabel="Desenvolvedora"
@@ -251,7 +286,7 @@ export class NovoJogo extends React.Component {
                                     label="Selecione a desenvolvedora"
                                     onChange={this.handleDesenvolvedoraChange}
                                     titleText="Desenvolvedora:"
-                                    value={this.state.desenvolvedora}
+                                    selectedItem={this.state.desenvolvedora}
                                 />
                                 <Dropdown
                                     ariaLabel="Loja"
@@ -260,17 +295,18 @@ export class NovoJogo extends React.Component {
                                     label="Selecione a loja"
                                     onChange={this.handleLojaChange}
                                     titleText="Loja:"
-                                    value={this.state.loja}
+                                    selectedItem={this.state.loja}
                                 />
                                 <TextInput id="link" placeholder="Digite o Link" required labelText="Link:" onChange={this.handleLinkChange} value={this.state.link} />
                                 <MultiSelect
-                                    ariaLabel="tag"
-                                    id="tag"
+                                    ariaLabel="tags"
+                                    id="tags"
                                     items={this.state.listaTags}
                                     label="Selecione as tags"
                                     onChange={this.handleTagsChange}
                                     titleText="Tags:"
                                     value={this.state.tags}
+                                    selectedItems={this.state.tags.map((item) => { return { "id": item, "label": item } })}
                                 />
                             </Stack>
                             <br />
@@ -279,7 +315,7 @@ export class NovoJogo extends React.Component {
                                     Cancelar
                                 </Button>
                                 <Button kind="primary" type="submit">
-                                    Adicionar
+                                    Editar
                                 </Button>
                             </Stack>
                         </Form>

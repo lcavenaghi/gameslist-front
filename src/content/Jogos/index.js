@@ -1,3 +1,4 @@
 import Jogos from './Jogos';
 import { NovoJogo } from './NovoJogo';
-export { NovoJogo, Jogos };
+import { EditaJogo } from './EditaJogo';
+export { NovoJogo, Jogos, EditaJogo };
