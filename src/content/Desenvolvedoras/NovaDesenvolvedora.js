@@ -64,7 +64,6 @@ const NovaDesevolvedora = () => {
 
     const handleFundacaoChange = (e) => {
         setFundacao(document.getElementById("fundacao").value)
-        console.log(typeof document.getElementById("fundacao").value);
     }
 
     const handleLocalizacaoChange = (e) => {

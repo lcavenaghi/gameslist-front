@@ -13,9 +13,10 @@ import {
 
 
 
-const NovaLoja = () => {
-    const [nome, setNome] = useState('')
-    const [fundacao, setFundacao] = useState('')
+const NovaNoticia = () => {
+    const [titulo, setNome] = useState('')
+    const [data, setData] = useState('')
+    const [resumo, setResumo] = useState('')
     const [link, setLink] = useState('')
     const [loadingAtivo, setLoadingAtivo] = useState(false)
 
@@ -23,11 +24,12 @@ const NovaLoja = () => {
         setLoadingAtivo(true);
         e.preventDefault();
         let opts = {
-            'nome': nome,
-            'fundacao': formataData(fundacao),
+            'titulo': titulo,
+            'data': formataData(data),
+            'resumo': resumo,
             'link': link
         }
-        fetch(process.env.REACT_APP_API_URL + '/lojas', {
+        fetch(process.env.REACT_APP_API_URL + '/noticias', {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
@@ -54,7 +56,7 @@ const NovaLoja = () => {
                 return response.json();
             }
         }).then(data => {
-            window.location.href = '/lojas'
+            window.location.href = '/noticias'
         })
     }
 
@@ -62,8 +64,12 @@ const NovaLoja = () => {
         setNome(e.target.value)
     }
 
-    const handleFundacaoChange = (e) => {
-        setFundacao(document.getElementById("fundacao").value)
+    const handleDataChange = (e) => {
+        setData(document.getElementById("data").value)
+    }
+
+    const handleResumoChange = (e) => {
+        setResumo(e.target.value)
     }
 
     const handleLinkChange = (e) => {
@@ -81,26 +87,27 @@ const NovaLoja = () => {
             <Grid className="landing-page" fullWidth>
                 <Column lg={16} md={8} sm={4} className="landing-page__banner">
                     <h1 className="landing-page__heading">
-                        Lojas
+                        Notícias
                     </h1>
                 </Column>
                 <Column lg={8} md={8} sm={4}>
                     <Form onSubmit={onSubmitClick} className="formRegistro">
                         <Stack gap={7}>
-                            <TextInput id="nome" placeholder="Digite o nome" required labelText="Nome:" onChange={handleNomeChange} value={nome} />
-                            <DatePicker datePickerType="single" onChange={handleFundacaoChange}>
+                            <TextInput id="titulo" placeholder="Digite o Título" required labelText="Título:" onChange={handleNomeChange} value={titulo} />
+                            <DatePicker datePickerType="single" onChange={handleDataChange}>
                                 <DatePickerInput
-                                    labelText="Fundação:"
-                                    id="fundacao"
+                                    labelText="Publicação:"
+                                    id="data"
                                     size="md"
-                                    value={fundacao}
+                                    value={data}
                                 />
                             </DatePicker>
+                            <TextInput id="resumo" placeholder="Digite o resumo" required labelText="Resumo:" onChange={handleResumoChange} value={resumo} />
                             <TextInput id="link" placeholder="Digite o link" required labelText="Link:" onChange={handleLinkChange} value={link} />
                         </Stack>
                         <br />
                         <Stack gap={2} orientation="horizontal">
-                            <Button href="/lojas" kind="secondary">
+                            <Button href="/noticias" kind="secondary">
                                 Cancelar
                             </Button>
                             <Button kind="primary" type="submit">
@@ -114,4 +121,4 @@ const NovaLoja = () => {
     );
 }
 
-export default NovaLoja;
+export default NovaNoticia;

@@ -55,7 +55,6 @@ const Registro = () => {
         return response.json();
       }
     }).then(data => {
-      console.log(data.token);
       localStorage.setItem("token", data.token);
       window.location.href = '/'
     })

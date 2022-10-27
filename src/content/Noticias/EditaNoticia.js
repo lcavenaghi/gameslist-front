@@ -13,7 +13,7 @@ import {
 
 
 
-export class EditaLoja extends React.Component {
+export class EditaNoticia extends React.Component {
     formataData(data) {
         data = data.split("/");
         return (`${data[2]}-${data[0]}-${data[1]}`);
@@ -28,13 +28,14 @@ export class EditaLoja extends React.Component {
         super(props);
         this.state = {
             loadingAtivo: false,
-            nome: "",
-            fundacao: "",
+            titulo: "",
+            data: "",
+            resumo: "",
             link: ""
         }
     }
     componentDidMount() {
-        fetch(process.env.REACT_APP_API_URL + '/loja/' + new URL(window.location.href).searchParams.get('id'), {
+        fetch(process.env.REACT_APP_API_URL + '/noticia/' + new URL(window.location.href).searchParams.get('id'), {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -52,17 +53,21 @@ export class EditaLoja extends React.Component {
                 return response.json();
             }
         }).then(response => {
-            this.setState({ nome: response.nome, fundacao: this.desformataData(response.fundacao), link: response.link, loadingAtivo: false });
+            this.setState({ titulo: response.titulo, data: this.desformataData(response.data), resumo: response.resumo, link: response.link, loadingAtivo: false });
         })
     }
 
 
-    handleNomeChange = (e) => {
-        this.setState({ nome: e.target.value });
+    handleTituloChange = (e) => {
+        this.setState({ titulo: e.target.value });
     }
 
-    handleFundacaoChange = (e) => {
-        this.setState({ fundacao: document.getElementById("fundacao").value });
+    handleDataChange = (e) => {
+        this.setState({ data: document.getElementById("data").value });
+    }
+
+    handleResumoChange = (e) => {
+        this.setState({ resumo: e.target.value });
     }
 
     handleLinkChange = (e) => {
@@ -72,11 +77,12 @@ export class EditaLoja extends React.Component {
     onSubmitClick = (e) => {
         e.preventDefault();
         let opts = {
-            'nome': this.state.nome,
-            'fundacao': this.formataData(this.state.fundacao),
+            'titulo': this.state.titulo,
+            'data': this.formataData(this.state.data),
+            'resumo': this.state.resumo,
             'link': this.state.link
         }
-        fetch(process.env.REACT_APP_API_URL + '/loja/' + new URL(window.location.href).searchParams.get('id'), {
+        fetch(process.env.REACT_APP_API_URL + '/noticia/' + new URL(window.location.href).searchParams.get('id'), {
             method: 'PATCH',
             headers: {
                 'Accept': 'application/json',
@@ -103,7 +109,7 @@ export class EditaLoja extends React.Component {
                 return response.json();
             }
         }).then(data => {
-            window.location.href = '/lojas'
+            window.location.href = '/noticias'
         })
     }
 
@@ -114,26 +120,27 @@ export class EditaLoja extends React.Component {
                 <Grid className="landing-page" fullWidth>
                     <Column lg={16} md={8} sm={4} className="landing-page__banner">
                         <h1 className="landing-page__heading">
-                            Lojas
+                            Noticias
                         </h1>
                     </Column>
                     <Column lg={8} md={8} sm={4}>
                         <Form onSubmit={this.onSubmitClick} className="formRegistro">
                             <Stack gap={7}>
-                                <TextInput id="nome" placeholder="Digite o nome" required labelText="Nome:" onChange={this.handleNomeChange} value={this.state.nome} />
-                                <DatePicker datePickerType="single" onChange={this.handleFundacaoChange}>
+                                <TextInput id="titulo" placeholder="Digite o título" required labelText="Título:" onChange={this.handleTituloChange} value={this.state.titulo} />
+                                <DatePicker datePickerType="single" onChange={this.handleDataChange}>
                                     <DatePickerInput
-                                        labelText="Fundação:"
-                                        id="fundacao"
+                                        labelText="Data:"
+                                        id="data"
                                         size="md"
-                                        value={this.state.fundacao}
+                                        value={this.state.data}
                                     />
                                 </DatePicker>
+                                <TextInput id="resumo" placeholder="Digite o resumo" required labelText="Resumo:" onChange={this.handleResumoChange} value={this.state.resumo} />
                                 <TextInput id="link" placeholder="Digite o link" required labelText="Link:" onChange={this.handleLinkChange} value={this.state.link} />
                             </Stack>
                             <br />
                             <Stack gap={2} orientation="horizontal">
-                                <Button href="/lojas" kind="secondary">
+                                <Button href="/noticias" kind="secondary">
                                     Cancelar
                                 </Button>
                                 <Button kind="primary" type="submit">

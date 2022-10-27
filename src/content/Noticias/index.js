@@ -1,2 +1,4 @@
 import Noticias from './Noticias';
-export default Noticias;
+import NovaNoticia from './NovaNoticia';
+import { EditaNoticia } from './EditaNoticia';
+export {Noticias, NovaNoticia, EditaNoticia};
