@@ -11,11 +11,16 @@ function checaPerfil(perfis) {
 function tokenAutenticado(token) {
     if (token) {
         let tokenDate = parseJwt(token).exp;
-        let now = new Date()/1000;
+        let now = new Date() / 1000;
         return tokenDate > now;
     }
     else
         return false
+}
+
+function getEmail() {
+    let token = parseJwt(localStorage.getItem("token"));
+    return token.sub;
 }
 
 function parseJwt(token) {
@@ -27,4 +32,4 @@ function parseJwt(token) {
     return JSON.parse(jsonPayload);
 }
 
-export {checaPerfil, tokenAutenticado};
+export { checaPerfil, tokenAutenticado, getEmail };

@@ -45,7 +45,7 @@ export class BlocoNoticias extends React.Component {
                         lg={4}
                         md={3}
                         sm={3}
-                        className="blocoNoticias">
+                        className="blocoTiles">
                         <ClickableTile target="_blank" href={noticia.link}>
                             <h3>{noticia.titulo}</h3>
                             <p>{noticia.resumo}</p>

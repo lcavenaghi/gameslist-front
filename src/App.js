@@ -14,7 +14,7 @@ import ResetSenha from './content/ResetSenha';
 import Registro from './content/Registro';
 import Acessos from './content/Acessos';
 import { Desenvolvedoras, EditaDesenvolvedora, NovaDesevolvedora } from './content/Desenvolvedoras';
-import Jogos from './content/Jogos';
+import { Jogos } from './content/Jogos';
 import { Lojas, NovaLoja, EditaLoja } from './content/Lojas';
 import { Noticias, NovaNoticia, EditaNoticia } from './content/Noticias';
 import { Plataformas, NovaPlataforma, EditaPlataforma } from './content/Plataformas';
@@ -63,8 +63,8 @@ class App extends Component {
               <PrivateRouter exact path="/adicionaplataforma" component={NovaPlataforma} />
               <PrivateRouter exact path="/editaplataforma" component={EditaPlataforma} />
 
-              
-              <PrivateRouter exact path="/usuarios" component={Usuarios} />              
+
+              <PrivateRouter exact path="/usuarios" component={Usuarios} />
               <PrivateRouter exact path="/editausuario" component={EditaUsuario} />
             </Switch>
             <Footer />
