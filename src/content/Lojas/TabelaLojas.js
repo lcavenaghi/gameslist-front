@@ -33,14 +33,14 @@ export class TabelaLojas extends React.Component {
                 else {
                     this.setState({ loadingAtivo: false });
                     this.forceUpdate();
-                    document.getElementById("tablerow"+id).remove();
+                    document.getElementById("tablerow" + id).remove();
                 }
             })
         }
     }
 
     editar(id) {
-        alert("editando " + id)
+        window.location.href = '/editaloja?id=' + id
     }
 
     adicionar() {
@@ -104,7 +104,7 @@ export class TabelaLojas extends React.Component {
                     </TableHead>
                     <TableBody>
                         {this.state.data.map(loja =>
-                            <TableRow id={"tablerow"+loja._id} key={loja._id}>
+                            <TableRow id={"tablerow" + loja._id} key={loja._id}>
                                 <TableCell key={loja.nome}>{loja.nome}</TableCell>
                                 <TableCell key={loja.fundacao}>{loja.fundacao}</TableCell>
                                 <TableCell key={loja.link}><a target="_blank" rel="noreferrer" href={loja.link}>{loja.link}</a></TableCell>
